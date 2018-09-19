@@ -10,7 +10,7 @@
 - Using `python3`
 - Using `pip`, `sudo apt install python3-pip`
 - Pandas, `pip3 install pandas`
-- EVTK `pip3 install evtkor `sudo apt install mercurial`, `hg clone https://bitbucket.org/pauloh/pyevtk`, `sudo python3 setup.py install`
+- EVTK `pip3 install evtk` or `sudo apt install mercurial`, `hg clone https://bitbucket.org/pauloh/pyevtk`, `sudo python3 setup.py install`
 
 ## References
 - Pandas: https://pandas.pydata.org/pandas-docs/stable/generated/pandas.read_hdf.html

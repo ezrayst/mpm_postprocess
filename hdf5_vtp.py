@@ -26,8 +26,16 @@ print("directory of files: " + output_directory)
 # Loop all the .h5 files
 ntime = 5
 for index in range(0, ntime, 1):
+	# Prefix number of input file
+	if index < 10:
+		zeros = '00'
+	elif index < 100:
+		zeros = '0'
+	else:
+		zeros = ''
+
 	# Concatenate filename
-	input_filename = working_directory + input_filename_prefix + str(index) + input_filename_suffix
+	input_filename = working_directory + input_filename_prefix + zeros + str(index) + input_filename_suffix
 	output_filename = output_directory + output_prefix_filename + str(index)
 
 	# Read HDF5 - df refers to DataFrame

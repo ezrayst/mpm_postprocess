@@ -1,12 +1,13 @@
 # Import libraries
 import datetime
 import matplotlib as mp
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import os
 
 # Specify directories
-working_directory = 'bin/20180924_columncollapse_usf/'
+working_directory = 'bin/gravity_nopoisson/'
 
 # Input Files
 input_filename_prefix = 'particles'
@@ -20,10 +21,17 @@ if not os.path.exists(output_directory):
 	os.makedirs(output_directory)
 print("directory of files: " + output_directory)
 
-# Loop all the .h5 files
+# Add input
 ntime = 99
-volumetric_strain = 0;
-for index in range(0, ntime, 1):
+dt = 0.01
+point_id = [2, 3];
+
+# Preallocate variables
+time = np.zeros((ntime + 1, 1))
+stress = np.zeros((ntime + 1, len(point_id)))
+
+# Loop all the .h5 files
+for index in range(0, ntime + 1, 1):
 
 	# Prefix number of input file
 	if index < 10:
@@ -41,22 +49,35 @@ for index in range(0, ntime, 1):
 	df = pd.read_hdf(input_filename)
 
 	# Make np.array
-	coord_x = np.array(df['coord_x'])
-	coord_y = np.array(df['coord_y'])
-	coord_z = np.array(df['coord_z'])
-	stress_xx = np.array(df['stress_xx'])
+	#coord_x = np.array(df['coord_x'])
+	#coord_y = np.array(df['coord_y'])
+	#coord_z = np.array(df['coord_z'])
+	#stress_xx = np.array(df['stress_xx'])
 	stress_yy = np.array(df['stress_yy'])
-	stress_zz = np.array(df['stress_zz'])
-	strain_xx = np.array(df['strain_xx'])
-	strain_yy = np.array(df['strain_yy'])
-	strain_zz = np.array(df['strain_zz'])
+	#stress_zz = np.array(df['stress_zz'])
+	#tau_xy = np.array(df['tau_xy'])
+	#strain_xx = np.array(df['strain_xx'])
+	#strain_yy = np.array(df['strain_yy'])
+	#strain_zz = np.array(df['strain_zz'])
 
 	# Make data to store
-	volumetric_strain += (strain_xx[0] + strain_yy[0] + strain_zz[0])
+	for j in range(0, len(point_id), 1):
+		stress[index, j] = stress_yy[point_id[j]]	
+
+	# Prompt to make sure it's OK
+	print(input_filename + " has been read at " + str(datetime.datetime.now()))
+
+	# Update time
+	time[index] = index * dt;
 
 	# Update index for next time step
 	index += 1
 
-print(volumetric_strain)
+# Plot
+plt.plot(time, stress, 'b')
+plt.axis([0, 1, -30000, 0])
+plt.xlabel('Time (s)')
+plt.ylabel('Stress (Pa)')
+plt.show()
 
 

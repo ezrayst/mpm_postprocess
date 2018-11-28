@@ -7,7 +7,7 @@ import pandas as pd
 import os
 
 # Specify directories
-working_directory = 'bin/gravity_nopoisson/'
+working_directory = 'bin/hydrostatic_usf_linearelastic-1/'
 
 # Input Files
 input_filename_prefix = 'particles'
@@ -15,7 +15,7 @@ input_filename_suffix = '00.h5'
 
 # Output files
 output_directory = working_directory + 'results/'
-output_prefix_filename = 'strain'
+output_prefix_filename = 'stress'
 output_suffix_filename = '.vtp'
 if not os.path.exists(output_directory):
 	os.makedirs(output_directory)
@@ -23,8 +23,8 @@ print("directory of files: " + output_directory)
 
 # Add input
 ntime = 99
-dt = 0.01
-point_id = [2, 3];
+dt = 0.00001
+point_id = [0];
 
 # Preallocate variables
 time = np.zeros((ntime + 1, 1))

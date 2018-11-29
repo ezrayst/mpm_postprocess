@@ -11,14 +11,14 @@ working_directory = ['bin/hydrostatic_usf_newtonian-1/',
                      'bin/hydrostatic_usl_newtonian-1/',
                      'bin/hydrostatic_usf_newtonian-2/',
                      'bin/hydrostatic_usl_newtonian-2/',
-                     'bin/hydrostatic_usf_newtonian-2/',
-                     'bin/hydrostatic_usl_newtonian-2/']
+                     'bin/hydrostatic_usf_newtonian-3/',
+                     'bin/hydrostatic_usl_newtonian-3/']
 # Input Files
 input_filename_prefix = 'particles'
 input_filename_suffix = '00.h5'
 
 # Add input
-ntime = 99
+ntime = 199
 dt = 0.001
 point_id = [0];
 
@@ -45,7 +45,7 @@ for k in range(0, len(working_directory), 1):
 		elif k < 4:
 			multiplication = 2
 		else:
-			multiplication = 2
+			multiplication = 4
 
 		index_mult = index * multiplication;
 
@@ -96,7 +96,7 @@ line3, = plt.plot(time, stress[:, [2]], 'g', label='USF Case 2')
 line4, = plt.plot(time, stress[:, [3]], 'm--', label='USL Case 2')
 line5, = plt.plot(time, stress[:, [4]], 'g', label='USF Case 3')
 line6, = plt.plot(time, stress[:, [5]], 'y--', label='USL Case 3')
-plt.axis([0, 0.1, -2500, 0])
+plt.axis([0, 0.20, -3000, 0])
 plt.xlabel('Time (s)')
 plt.ylabel('Stress in Y direction (Pa)')
 plt.legend(handles=[line1, line2, line3, line4, line5, line6])

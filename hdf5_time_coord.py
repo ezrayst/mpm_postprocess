@@ -7,13 +7,13 @@ import pandas as pd
 import os
 
 # Specify directories
-working_directory = ['bin/iverson-2d-mc-new/']
+working_directory = ['bin/iverson-2d-experiment/']
 # Input Files
 input_filename_prefix = 'particles'
 input_filename_suffix = '000.h5'
 
 # Add input
-ntime = 499
+ntime = 126
 dt = 0.001
 point_id = [0];
 
@@ -46,11 +46,11 @@ for k in range(0, len(working_directory), 1):
 
 		# Prefix number of input file
 		if index_mult < 10:
-			zeros = '00'
+			zeros = '000'
 		elif index_mult < 100:
-			zeros = '0'
+			zeros = '00'
 		else:
-			zeros = ''
+			zeros = '0'
 
 		# Concatenate filename
 		input_filename = working_directory[k] + input_filename_prefix + zeros + str(index_mult) + input_filename_suffix
@@ -87,7 +87,7 @@ for k in range(0, len(working_directory), 1):
 
 
 coord_save = np.zeros((50, 1))
-for i in range(0, 49, 1):
+for i in range(0, 12, 1):
 	coord_save[i, 0] = coord[i * 10, 0]
 
 np.savetxt('data.csv', coord_save, delimiter=',')

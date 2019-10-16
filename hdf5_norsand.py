@@ -20,6 +20,7 @@ point_id = [247, 248, 263, 264];
 # Preallocate variables
 time = np.zeros((ntime + 1, 1))
 stress = np.zeros((ntime + 1, 3 * len(point_id)))
+strain = np.zeros((ntime + 1, 3 * len(point_id)))
 pq = np.zeros((ntime + 1, 2 * len(point_id)))
 state_parameters = np.zeros((ntime + 1, 3 * len(point_id)))
 
@@ -55,9 +56,12 @@ for k in range(0, len(working_directory), 1):
 		tau_xy = np.array(df['tau_xy'])
 		tau_yz = np.array(df['tau_yz'])
 		tau_xz = np.array(df['tau_xz'])
-		#strain_xx = np.array(df['strain_xx'])
-		#strain_yy = np.array(df['strain_yy'])
-		#strain_zz = np.array(df['strain_zz'])
+		strain_xx = np.array(df['strain_xx'])
+		strain_yy = np.array(df['strain_yy'])
+		strain_zz = np.array(df['strain_zz'])
+		gamma_xy = np.array(df['gamma_xy'])
+		gamma_yz = np.array(df['gamma_yz'])
+		gamma_xz = np.array(df['gamma_xz'])
 		p_image = np.array(df['p_image'])
 		e_image = np.array(df['e_image'])
 		void_ratio = np.array(df['void_ratio'])
@@ -75,6 +79,10 @@ for k in range(0, len(working_directory), 1):
 			state_parameters[index, j * 3 + 1] = e_image[point_id[j]]
 			state_parameters[index, j * 3 + 2] = void_ratio[point_id[j]]
 
+			strain[index, j * 3]     = strain_xx[point_id[j]]
+			strain[index, j * 3 + 1] = strain_yy[point_id[j]]
+			strain[index, j * 3 + 2] = gamma_xy[point_id[j]]
+
 		# Prompt to make sure it's OK
 		print(input_filename + " has been read at " + str(datetime.datetime.now()))
 	
@@ -88,8 +96,11 @@ for k in range(0, len(working_directory), 1):
 output_filename1 = 'stress_study.txt'
 np.savetxt(output_filename1, stress, fmt="%.6f")
 
-output_filename2 = 'pq_study.txt'
-np.savetxt(output_filename2, pq, fmt="%.6f")
+output_filename2 = 'strain_study.txt'
+np.savetxt(output_filename2, strain, fmt="%.6f")
 
-output_filename3 = 'state_parameter.txt'
-np.savetxt(output_filename3, state_parameters, fmt="%.6f")
+output_filename3 = 'pq_study.txt'
+np.savetxt(output_filename3, pq, fmt="%.6f")
+
+output_filename4 = 'state_parameter.txt'
+np.savetxt(output_filename4, state_parameters, fmt="%.6f")

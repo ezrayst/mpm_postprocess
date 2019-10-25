@@ -13,7 +13,7 @@ input_filename_prefix = 'particles'
 input_filename_suffix = '00.h5'
 
 # Add input
-ntime = 1000
+ntime = 950
 point_id = [0];
 
 # Preallocate variables
@@ -67,7 +67,7 @@ for k in range(0, len(working_directory), 1):
 		e_image = np.array(df['e_image'])
 		void_ratio = np.array(df['void_ratio'])
 		lode_angle = np.array(df['lode_angle'])
-		M = np.array(df['M_theta'])
+		M_theta = np.array(df['M_theta'])
 	
 		# Make data to store
 		for j in range(0, len(point_id), 1):
@@ -81,6 +81,8 @@ for k in range(0, len(working_directory), 1):
 			state_parameters[index, j * 3]     = p_image[point_id[j]]
 			state_parameters[index, j * 3 + 1] = e_image[point_id[j]]
 			state_parameters[index, j * 3 + 2] = void_ratio[point_id[j]]
+			state_parameters[index, j * 3 + 3] = lode_angle[point_id[j]]
+			state_parameters[index, j * 3 + 4] = M_theta[point_id[j]]
 
 			strain[index, j * 3]     = strain_xx[point_id[j]]
 			strain[index, j * 3 + 1] = strain_yy[point_id[j]]

@@ -7,22 +7,21 @@ import pandas as pd
 import os
 
 # Specify directories
-working_directory = ['norsand/']
+working_directory = ['../results/norsand/']
 # Input Files
 input_filename_prefix = 'particles'
-input_filename_suffix = '000.h5'
+input_filename_suffix = '00.h5'
 
 # Add input
-ntime = 50
-dt = 0.01
-point_id = [247, 248, 263, 264];
+ntime = 1000
+point_id = [0];
 
 # Preallocate variables
 time = np.zeros((ntime + 1, 1))
 stress = np.zeros((ntime + 1, 3 * len(point_id)))
 strain = np.zeros((ntime + 1, 3 * len(point_id)))
 pq = np.zeros((ntime + 1, 2 * len(point_id)))
-state_parameters = np.zeros((ntime + 1, 3 * len(point_id)))
+state_parameters = np.zeros((ntime + 1, 5 * len(point_id)))
 
 for k in range(0, len(working_directory), 1):
 
@@ -34,9 +33,11 @@ for k in range(0, len(working_directory), 1):
 
 		# Prefix number of input file
 		if index_mult < 10:
-			zeros = '0'
+			zeros = '000'
 		elif index_mult < 100:
-			zeros = ''
+			zeros = '00'
+		elif index_mult < 1000:
+			zeros = '0'
 		else:
 			zeros = ''
 
@@ -65,12 +66,14 @@ for k in range(0, len(working_directory), 1):
 		p_image = np.array(df['p_image'])
 		e_image = np.array(df['e_image'])
 		void_ratio = np.array(df['void_ratio'])
+		lode_angle = np.array(df['lode_angle'])
+		M = np.array(df['M_theta'])
 	
 		# Make data to store
 		for j in range(0, len(point_id), 1):
 			stress[index, j * 3]     = stress_xx[point_id[j]]
 			stress[index, j * 3 + 1] = stress_yy[point_id[j]]
-			stress[index, j * 3 + 2] = tau_xy[point_id[j]]
+			stress[index, j * 3 + 2] = stress_zz[point_id[j]]
 
 			pq[index, j * 2]     = (stress_xx[point_id[j]] + stress_yy[point_id[j]] + stress_zz[point_id[j]]) / 3
 			pq[index, j * 2 + 1] = np.sqrt(0.5 * (np.square(stress_xx[point_id[j]] - stress_yy[point_id[j]]) + np.square(stress_yy[point_id[j]] - stress_zz[point_id[j]]) + np.square(stress_xx[point_id[j]] - stress_zz[point_id[j]])) + 6 * (np.square(tau_xy[point_id[j]]) + np.square(tau_yz[point_id[j]]) + np.square(tau_xz[point_id[j]])))
@@ -85,9 +88,6 @@ for k in range(0, len(working_directory), 1):
 
 		# Prompt to make sure it's OK
 		print(input_filename + " has been read at " + str(datetime.datetime.now()))
-	
-		# Update time
-		time[index] = index * dt;
 	
 		# Update index for next time step
 		index += 1

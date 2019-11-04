@@ -7,13 +7,13 @@ import pandas as pd
 import os
 
 # Specify directories
-working_directory = ['../results/norsand/']
+working_directory = ['../results/norsand_contractive_bonded/']
 # Input Files
 input_filename_prefix = 'particles'
-input_filename_suffix = '00.h5'
+input_filename_suffix = '0000.h5'
 
 # Add input
-ntime = 950
+ntime = 1000
 point_id = [0];
 
 # Preallocate variables
@@ -21,7 +21,7 @@ time = np.zeros((ntime + 1, 1))
 stress = np.zeros((ntime + 1, 3 * len(point_id)))
 strain = np.zeros((ntime + 1, 3 * len(point_id)))
 pq = np.zeros((ntime + 1, 2 * len(point_id)))
-state_parameters = np.zeros((ntime + 1, 5 * len(point_id)))
+state_parameters = np.zeros((ntime + 1, 7 * len(point_id)))
 
 for k in range(0, len(working_directory), 1):
 
@@ -68,6 +68,8 @@ for k in range(0, len(working_directory), 1):
 		void_ratio = np.array(df['void_ratio'])
 		lode_angle = np.array(df['lode_angle'])
 		M_theta = np.array(df['M_theta'])
+		p_cohesion = np.array(df['p_cohesion'])
+		zeta = np.array(df['zeta'])
 	
 		# Make data to store
 		for j in range(0, len(point_id), 1):
@@ -83,6 +85,8 @@ for k in range(0, len(working_directory), 1):
 			state_parameters[index, j * 3 + 2] = void_ratio[point_id[j]]
 			state_parameters[index, j * 3 + 3] = lode_angle[point_id[j]]
 			state_parameters[index, j * 3 + 4] = M_theta[point_id[j]]
+			state_parameters[index, j * 3 + 5] = p_cohesion[point_id[j]]
+			state_parameters[index, j * 3 + 6] = zeta[point_id[j]]
 
 			strain[index, j * 3]     = strain_xx[point_id[j]]
 			strain[index, j * 3 + 1] = strain_yy[point_id[j]]

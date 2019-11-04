@@ -54,9 +54,9 @@ for k in range(0, len(working_directory), 1):
 		coord_x = np.array(df['coord_x'])
 		coord_y = np.array(df['coord_y'])
 		coord_z = np.array(df['coord_z'])
-		# displacement_x = np.array(df['displacement_x'])
-		# displacement_y = np.array(df['displacement_y'])
-		# displacement_z = np.array(df['displacement_z'])
+		displacement_x = np.array(df['displacement_x'])
+		displacement_y = np.array(df['displacement_y'])
+		displacement_z = np.array(df['displacement_z'])
 		stress_xx = np.array(df['stress_xx'])
 		stress_yy = np.array(df['stress_yy'])
 		stress_zz = np.array(df['stress_zz'])
@@ -72,7 +72,7 @@ for k in range(0, len(working_directory), 1):
 
 		# Make data to store
 		stress = np.zeros((len(stress_xx), 3))
-		# displacement = np.zeros((len(displacement_x), 3))
+		displacement = np.zeros((len(displacement_x), 3))
 		iterate = 0
 		for iterate in range(0, len(stress_xx)):
 			meanstress = (stress_xx[iterate] + stress_yy[iterate]) / 2
@@ -80,16 +80,16 @@ for k in range(0, len(working_directory), 1):
 			stress_parallel = meanstress - np.sqrt(diffstress**2 + tau_xy[iterate]**2)
 			stress_perpendicular = meanstress + np.sqrt(diffstress**2 + tau_xy[iterate]**2)
 
-			# displacement_total = np.sqrt(displacement_x[iterate]**2 + displacement_y[iterate]**2)
+			displacement_total = np.sqrt(displacement_x[iterate]**2 + displacement_y[iterate]**2)
 
 			# Put them into the data structure
 			stress[iterate][0] = stress_parallel
 			stress[iterate][1] = stress_perpendicular
 			stress[iterate][2] = 0
 
-			# displacement[iterate][0] = displacement_total
-			# displacement[iterate][1] = 0
-			# displacement[iterate][2] = 0
+			displacement[iterate][0] = displacement_total
+			displacement[iterate][1] = 0
+			displacement[iterate][2] = 0
 
 			# Update iterate
 			iterate += 1
@@ -113,15 +113,15 @@ for k in range(0, len(working_directory), 1):
 		output_filename1 = output_directory + output_prefix_filename1 + str(k) + output_suffix_filename
 		np.savetxt(output_filename1, stress, fmt="%.16f")
 		
-		# output_filename2 = output_directory + output_prefix_filename2 + str(k) + output_suffix_filename
-		# np.savetxt(output_filename2, displacement, fmt="%.16f")
+		output_filename2 = output_directory + output_prefix_filename2 + str(k) + output_suffix_filename
+		np.savetxt(output_filename2, displacement, fmt="%.16f")
 
 		output_filename3 = output_directory + output_prefix_filename3 + str(k) + output_suffix_filename
 		np.savetxt(output_filename3, initial_particles, fmt="%.16f")
 
 		# Print prompts
 		print(output_prefix_filename1 + str(k) + output_suffix_filename + " has been processed at " + str(datetime.datetime.now()))
-		# print(output_prefix_filename2 + str(k) + output_suffix_filename + " has been processed at " + str(datetime.datetime.now()))
+		print(output_prefix_filename2 + str(k) + output_suffix_filename + " has been processed at " + str(datetime.datetime.now()))
 		print(output_prefix_filename3 + str(k) + output_suffix_filename + " has been processed at " + str(datetime.datetime.now()))
 
 		# Update index for next time step

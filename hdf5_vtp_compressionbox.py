@@ -73,7 +73,6 @@ for k in range(0, len(working_directory), 1):
 		# Make data to store
 		stress = np.zeros((len(stress_xx), 3))
 		# displacement = np.zeros((len(displacement_x), 3))
-		initial_particles = np.zeros((len(stress_xx), 2))
 		iterate = 0
 		for iterate in range(0, len(stress_xx)):
 			meanstress = (stress_xx[iterate] + stress_yy[iterate]) / 2
@@ -95,10 +94,11 @@ for k in range(0, len(working_directory), 1):
 			# Update iterate
 			iterate += 1
 
-		if (index == 0):
+		initial_particles = np.zeros((len(stress_xx), 2))
+		if (index == 1):
 			for iterate in range(0, len(stress_xx)):
-				initial_particles[iterate][0] = coord_x
-				initial_particles[iterate][1] = coord_y
+				initial_particles[iterate][0] = coord_x[iterate]
+				initial_particles[iterate][1] = coord_y[iterate]
 
 				# Update iterate
 				iterate += 1

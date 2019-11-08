@@ -90,7 +90,7 @@ for k in range(0, len(working_directory), 1):
 
 			strain[index, j * 3]     = strain_xx[point_id[j]]
 			strain[index, j * 3 + 1] = strain_yy[point_id[j]]
-			strain[index, j * 3 + 2] = gamma_xy[point_id[j]]
+			strain[index, j * 3 + 2] = strain_zz[point_id[j]]
 
 		# Prompt to make sure it's OK
 		print(input_filename + " has been read at " + str(datetime.datetime.now()))

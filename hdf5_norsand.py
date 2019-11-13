@@ -69,7 +69,7 @@ for k in range(0, len(working_directory), 1):
 		lode_angle = np.array(df['lode_angle'])
 		M_theta = np.array(df['M_theta'])
 		p_cohesion = np.array(df['p_cohesion'])
-		zeta = np.array(df['zeta'])
+		p_dilation = np.array(df['p_dilation'])
 	
 		# Make data to store
 		for j in range(0, len(point_id), 1):
@@ -86,7 +86,7 @@ for k in range(0, len(working_directory), 1):
 			state_parameters[index, j * 3 + 3] = lode_angle[point_id[j]]
 			state_parameters[index, j * 3 + 4] = M_theta[point_id[j]]
 			state_parameters[index, j * 3 + 5] = p_cohesion[point_id[j]]
-			state_parameters[index, j * 3 + 6] = zeta[point_id[j]]
+			state_parameters[index, j * 3 + 6] = p_dilation[point_id[j]]
 
 			strain[index, j * 3]     = strain_xx[point_id[j]]
 			strain[index, j * 3 + 1] = strain_yy[point_id[j]]

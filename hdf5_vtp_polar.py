@@ -27,7 +27,7 @@ print("directory of files: " + output_directory)
 
 # Loop all the .h5 files
 ntime = 5
-index = 10
+index = 150
 #for index in range(0, ntime, 1):
 	
 # Prefix number of input file

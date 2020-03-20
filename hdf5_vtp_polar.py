@@ -11,10 +11,10 @@ import os
 from evtk.hl import pointsToVTK 
 
 # Specify directories
-working_directory = 'bin/pea_norsand_half/'
+working_directory = 'bin/ptc_full/'
 
 # Input Files
-input_filename_prefix = 'particles0'
+input_filename_prefix = 'particles'
 input_filename_suffix = '000.h5'
 
 # Output files
@@ -26,17 +26,18 @@ if not os.path.exists(output_directory):
 print("directory of files: " + output_directory)
 
 # Loop all the .h5 files
-ntime = 5
-index = 150
+ntime = 4
+index = 40
 #for index in range(0, ntime, 1):
 	
 # Prefix number of input file
-if index < 10:
-	zeros = '00'
-elif index < 100:
-	zeros = '0'
-else:
-	zeros = ''
+# if index < 10:
+# 	zeros = '00'
+# elif index < 100:
+# 	zeros = '0'
+# else:
+# 	zeros = ''
+zeros = '';
 
 # Concatenate filename
 input_filename = working_directory + input_filename_prefix + zeros + str(index) + input_filename_suffix

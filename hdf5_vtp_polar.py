@@ -27,7 +27,7 @@ print("directory of files: " + output_directory)
 
 # Loop all the .h5 files
 ntime = 4
-index = 40
+index = 10
 #for index in range(0, ntime, 1):
 	
 # Prefix number of input file
@@ -63,7 +63,7 @@ radial = np.random.rand(len(coord_x))
 hoop   = np.random.rand(len(coord_x))
 shear  = np.random.rand(len(coord_x))
 
-for iterate in range(1, len(coord_x)):
+for iterate in range(0, len(coord_x)):
 
 	theta = np.arctan2(coord_y[iterate], coord_x[iterate])
 	costheta = np.cos(theta)
